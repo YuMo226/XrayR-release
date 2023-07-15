@@ -78,8 +78,8 @@ install_base() {
         yum install epel-release -y
         yum install wget curl unzip tar crontabs socat -y
     else
-        apt update -y
-        apt install wget curl unzip tar cron socat -y
+        apk update
+        apk add wget curl unzip tar cron socat
     fi
 }
 
@@ -143,9 +143,9 @@ install_XrayR() {
     file="https://github.com/XrayR-project/XrayR-release/raw/master/XrayR.service"
     wget -q -N --no-check-certificate -O /etc/systemd/system/XrayR.service ${file}
     #cp -f XrayR.service /etc/systemd/system/
-    systemctl daemon-reload
-    systemctl stop XrayR
-    systemctl enable XrayR
+    rc daemon-reload
+    rc stop XrayR
+    rc enable XrayR
     echo -e "${green}XrayR ${last_version}${plain} 安装完成，已设置开机自启"
     cp geoip.dat /etc/XrayR/
     cp geosite.dat /etc/XrayR/ 
@@ -155,7 +155,7 @@ install_XrayR() {
         echo -e ""
         echo -e "全新安装，请先参看教程：https://github.com/XrayR-project/XrayR，配置必要的内容"
     else
-        systemctl start XrayR
+        rc start XrayR
         sleep 2
         check_status
         echo -e ""
